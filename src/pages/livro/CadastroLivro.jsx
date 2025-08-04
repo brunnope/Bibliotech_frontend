@@ -1,77 +1,195 @@
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import "./CadastroLivro.css";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./styles/CadastroLivro.css";
 import Lixeira from "../../assets/lixeira.png";
-import api from "../../services/api";
+import api from "../../services/api.js";
+import InputField from "../../components/input/InputField.jsx";
+import Button from "../../components/button/Button.jsx";
 
 function CadastroLivro() {
-  const [livros, setLivros] = useState([]);
-  const titulo = useRef();
-  const autor = useRef();
-  const categoria = useRef();
-  const ISBN = useRef();
-  const dataCadastro = useRef();
+  const { id } = useParams();
+  const editar = !!id; 
+
+  const [livro, setLivro] = useState(null);
+  const [categoriaOptions, setCategoriaOptions] = useState([]);
+  const [titulo, setTitulo] = useState("");
+  const [autor, setAutor] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [dataCadastro, setDataCadastro] = useState("");
+
   const navigate = useNavigate();
 
   const hoje = new Date();
-  const dataMax = hoje.toLocaleDateString('en-CA');
+  const dataMax = hoje.toLocaleDateString("en-CA");
 
-    // Função para criar um livro
+  function handleSubmit(e) {
+    e.preventDefault();
+    criarLivro();
+  }
+
   async function criarLivro() {
-    await api.post("/livros", {
-      titulo: titulo.current.value,
-      autor: autor.current.value,
-      categoria: categoria.current.value,
-      isbn: ISBN.current.value,
-      dataCadastro: dataCadastro.current.value,
+    if (editar){
+      await api.put(`/livros/${livro.idLivro}`, {
+        titulo,
+        autor,
+        categoria,
+        isbn,
+        dataCadastro,
+      });
+      navigate("/");
+    }else {
+      await api.post("/livros", {
+      titulo,
+      autor,
+      categoria,
+      isbn,
+      dataCadastro,
     });
 
-    document.getElementById("btnLimpar").click();
-    getLivros();
-  }
-
-  // Função para buscar livros
-  async function getLivros() {
-    const response = await api.get("/livros");
-    setLivros(response.data);
-  }
-
-    async function excluirLivro(id) {
-        await api.delete(`/livros/${id}`);
-        getLivros();
+    limparCampos();
+    getLivro();
+    carregarCategorias();
     }
+    
+  }
 
-  // Redirecionar para listagem
+  function limparCampos() {
+    setTitulo("");
+    setAutor("");
+    setCategoria("");
+    setIsbn("");
+    setDataCadastro("");
+  }
+
+  async function getLivro() {
+    const response = await api.get("/livros/ultimo");
+    if (response.data) {
+      setLivro(response.data);
+    }
+  }
+
+  async function carregarCategorias() {
+    const response = await api.get("livros/categorias");
+    setCategoriaOptions(response.data);
+  }
+
+  async function excluirLivro(id) {
+    await api.delete(`/livros/${id}`);
+    setLivro(null);
+    limparCampos();
+    carregarCategorias();
+
+    if (editar) {
+      navigate("/");
+    }
+  }
+
   function cancelarCadastro() {
     navigate("/");
   }
 
   useEffect(() => {
-    getLivros();
+    carregarCategorias();
+    if (editar) {
+      // Se estamos editando, buscar o livro pelo ID
+      api.get(`/livros/${id}`).then(response => {
+        const livro = response.data;
+        setLivro(livro);
+        setTitulo(livro.titulo);
+        setAutor(livro.autor);
+        setCategoria(livro.categoria);
+        setIsbn(livro.isbn);
+        setDataCadastro(livro.dataCadastro);
+      });
+    }
   }, []);
 
   return (
     <div className="container">
-      <form>
-        <h1>Cadastro de Livros</h1>
-        <input placeholder="Título" name="Título" type="text" ref={titulo} />
-        <input placeholder="Autor" name="Autor" type="text" ref={autor} />
-        <input placeholder="Categoria" name="Categoria" type="text" ref={categoria} />
-        <input placeholder="ISBN" name="ISBN" type="text" ref={ISBN} />
-        <input placeholder="Data de Cadastro" name="DataCadastro" type="date" ref={dataCadastro}  min="2000-01-01"
-               max={dataMax}/>
-        <button type="button" onClick={criarLivro}>
-          Salvar
-        </button>
-        <button id="btnLimpar" type="reset">
-          Limpar
-        </button>
-        <button type="button" onClick={cancelarCadastro}>
-          Cancelar
-        </button>
+      <form onSubmit={handleSubmit}>
+
+        {editar && livro ? (
+          <h1>Editar Livro: <br></br>
+            <span id="span_editar">{livro.titulo}</span></h1>
+        ) : (
+          <h1>Cadastro de Livro</h1>
+        )}
+        
+        <InputField
+          label="Título"
+          name="titulo"
+          placeholder="Título"
+          value={titulo}
+          required={true}
+          maxLength={255}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
+
+        <InputField
+          label="Autor"
+          name="autor"
+          placeholder="Autor"
+          value={autor}
+          required={true}
+          maxLength={255}
+          onChange={(e) => setAutor(e.target.value)}
+        />
+
+        <InputField
+          label="Categoria"
+          name="categoria"
+          placeholder="Categoria"
+          datalistOptions={categoriaOptions}
+          value={categoria}
+          required={true}
+          maxLength={100}
+          onChange={(e) => setCategoria(e.target.value)}
+        />
+
+        <InputField
+          label="ISBN"
+          name="isbn"
+          type="number"
+          placeholder="ISBN"
+          value={isbn}
+          required={true}
+          maxLength={13}
+          min={0}
+          onChange={(e) => setIsbn(e.target.value)}
+        />
+
+        <InputField
+          label="Data de Cadastro"
+          name="dataCadastro"
+          type="date"
+          value={dataCadastro}
+          required={true}
+          onChange={(e) => setDataCadastro(e.target.value)}
+          min="2020-01-01"
+          max={dataMax}
+        />
+
+        <Button
+          text="Salvar"
+          type="submit"
+          id="btn-salvar"
+        />
+        
+        <Button
+          text="Limpar"
+          type="button"
+          onClick={limparCampos}
+        />
+
+        <Button
+          text="Cancelar"
+          type="button"
+          onClick={cancelarCadastro}
+        />
       </form>
 
-      {livros.map((livro) => (
+      {livro && (
         <div key={livro.idLivro} className="card">
           <div>
             <p>
@@ -91,11 +209,13 @@ function CadastroLivro() {
             </p>
           </div>
 
-          <button type="button" onClick={() => excluirLivro(livro.idLivro)}>
-            <img src={Lixeira} alt="Excluir" />
-          </button>
+          <Button
+            type="button"
+            onClick={() => excluirLivro(livro.idLivro)}
+            img={Lixeira}
+          />
         </div>
-      ))}
+      )}
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ListarLivros.css";
+import "./styles/ListarLivros.css";
 import Lixeira from "../../assets/lixeira.png";
 import Editar from "../../assets/editar.png";
 import api from "../../services/api";
 
-function ListarLivro() {
+function ListarLivros() {
   const [livros, setLivros] = useState([]);
   const navigate = useNavigate();
 
@@ -85,4 +85,4 @@ function ListarLivro() {
   );
 }
 
-export default ListarLivro;
+export default ListarLivros;
