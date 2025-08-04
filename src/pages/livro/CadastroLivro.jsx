@@ -117,7 +117,7 @@ function CadastroLivro() {
         )}
         
         <InputField
-          label="Título"
+          label="Título*"
           name="titulo"
           placeholder="Título"
           value={titulo}
@@ -127,7 +127,7 @@ function CadastroLivro() {
         />
 
         <InputField
-          label="Autor"
+          label="Autor*"
           name="autor"
           placeholder="Autor"
           value={autor}
@@ -137,7 +137,7 @@ function CadastroLivro() {
         />
 
         <InputField
-          label="Categoria"
+          label="Categoria*"
           name="categoria"
           placeholder="Categoria"
           datalistOptions={categoriaOptions}
@@ -148,7 +148,7 @@ function CadastroLivro() {
         />
 
         <InputField
-          label="ISBN"
+          label="ISBN*"
           name="isbn"
           type="number"
           placeholder="ISBN"
@@ -160,7 +160,7 @@ function CadastroLivro() {
         />
 
         <InputField
-          label="Data de Cadastro"
+          label="Data de Cadastro*"
           name="dataCadastro"
           type="date"
           value={dataCadastro}
