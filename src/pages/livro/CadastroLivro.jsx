@@ -81,12 +81,12 @@ function CadastroLivro() {
     carregarCategorias();
 
     if (editar) {
-      navigate("/");
+      navigate("/admin-home");
     }
   }
 
   function cancelarCadastro() {
-    navigate("/");
+    navigate("/admin/home");
   }
 
   useEffect(() => {
@@ -106,8 +106,8 @@ function CadastroLivro() {
   }, []);
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
+    <div className="cadastro-container">
+      <form className="form-cadastro" onSubmit={handleSubmit}>
 
         {editar && livro ? (
           <h1>Editar Livro: <br></br>

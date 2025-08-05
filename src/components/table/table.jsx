@@ -4,7 +4,7 @@ import Lixeira from "../../assets/lixeira.png";
 
 function DataTable({ title, columns, data, onEdit, onDelete, onAdd, idField = "id" }) {
   return (
-    <div className="container">
+    <div className="container-table">
       {title && <h1>{title}</h1>}
       {onAdd && (
         <button className="cadastro-btn" onClick={onAdd}>

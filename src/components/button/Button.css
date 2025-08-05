@@ -1,4 +1,4 @@
-button {
+.comp-button {
   border-radius: 30px;
   background-color: #4CAF50;
   height: 40px;
@@ -8,6 +8,6 @@ button {
   font-size: 14px;
 }
 
-button:hover {
+.comp-button:hover {
   opacity: 0.8;
 }
