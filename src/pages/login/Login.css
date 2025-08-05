@@ -96,3 +96,30 @@
   }
 }
 
+/* Style para tela de redefinir senha */
+
+#explicacao {
+    margin-top: -15px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+
+
+#redefinir-senha-button {
+    margin-bottom: -30px;
+}
+
+.mensagem {
+    text-align: center;
+    margin-top: -30px;
+    margin-bottom: -20px;
+    font-size: 0.8rem;
+}
+
+.mensagem.sucesso {
+  color: #2ecc40;
+}
+.mensagem.erro {
+  color: #e74c3c;
+}

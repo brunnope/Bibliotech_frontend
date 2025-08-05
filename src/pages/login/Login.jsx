@@ -43,7 +43,7 @@ function Login() {
             <div className="login-container">
                 <div className="login-info">
                     <h2>Bem-vindo à Bibliotech!</h2>
-                    <img src={Logo} alt="" />
+                    <img src={Logo} alt="Logo Bibliotech" />
                 </div>
                 <div className="login-form">
                     <h3>Login</h3>
@@ -73,7 +73,7 @@ function Login() {
                         /> 
                         
                         <a href="#">Não possui uma conta?</a>
-                        <a id='redefinir' href="#">Redefenir senha</a>
+                        <a onClick={() => navigate('/redefinir-senha')}>Redefenir senha</a>
                     </form>
                     
                 </div>
