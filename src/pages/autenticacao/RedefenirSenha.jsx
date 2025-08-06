@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import "./Auth.css";
 import Logo from '../../assets/slogan_completa.png'; 
 import api from '../../services/api';
 import Button from '../../components/button/Button';
@@ -43,15 +43,14 @@ function RedefinirSenha() {
                 <p id="explicacao" >Para redefinir sua senha, por favor digite o endereço de e-mail ou matrícula da sua conta</p>   
 
                 <InputField
-                    label="Email ou Matrícula"
+                    label="E-mail ou Matrícula"
                     type="text"
                     id="identificador"
                     value={identificador}
                     onChange={(e) => setIdentificador(e.target.value)}
                     required
+                    placeholder="Email ou matrícula"
                 />
-
-                {console.log(mensagem)}
 
                 <p className={`mensagem ${mensagem.includes('sucesso') ? 'sucesso' : 'erro'}`}>
                 {mensagem}

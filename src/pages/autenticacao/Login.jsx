@@ -4,11 +4,12 @@ import api from "../../services/api";
 import Logo from "../../assets/slogan_completa.png";;
 import Button from "../../components/button/Button";
 import InputField from "../../components/input/InputField";
-import "./Login.css"
+import "./Auth.css"
 
 function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [mensagem, setMensagem] = useState('');
     const navigate = useNavigate();
 
     async function handleLogin(e) {
@@ -19,13 +20,12 @@ function Login() {
         const usuario = response.data.find(u => u.email === email && u.senha === senha);
 
         if (!usuario) {
-            alert("Email ou senha incorretos.");
+            setMensagem("E-mail ou senha incorretos!");
             return;
         }
 
         localStorage.setItem("usuario", JSON.stringify(usuario));
 
-        console.log(usuario.roles[0].role);
 
         if (usuario.roles[0].role === "ADMINISTRADOR") {
             navigate("/admin/home");
@@ -49,12 +49,13 @@ function Login() {
                     <h3>Login</h3>
                     <form onSubmit={handleLogin}>
                         <InputField
-                            label={"Email"}
+                            label={"E-mail"}
                             name={"email"}
                             type="email"
                             value={email}
                             required={true}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder="E-mail"
                         />
 
                         <InputField
@@ -65,14 +66,21 @@ function Login() {
                             required={true}
                             maxLength={150}
                             onChange={(e) => {setSenha(e.target.value)}}
+                            placeholder={"Senha"}
                         />
+
+                        {mensagem && (
+                            <p id='mensagem-login'>
+                                {mensagem}
+                            </p>
+                        )}
 
                         <Button 
                             text="Entrar" 
                             type="submit"
                         /> 
                         
-                        <a href="#">Não possui uma conta?</a>
+                        <a onClick={() => navigate('/cadastro-usuario')}>Não possui uma conta?</a>
                         <a onClick={() => navigate('/redefinir-senha')}>Redefenir senha</a>
                     </form>
                     

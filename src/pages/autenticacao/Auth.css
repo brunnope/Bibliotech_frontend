@@ -13,7 +13,8 @@
     margin: 40px 0px;
     width: 100%;
     max-width: 100%;
-    max-height: 600px;
+    min-height: 600px;
+    max-height: 700px;
     background-color: #ffffff;
     border: 2px solid #4CAF50;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -58,6 +59,15 @@
 .login-form input {
     margin-bottom: 10px;
 }
+
+#mensagem-login {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+    color: #e74c3c;
+}
+
 
 .login-form button {
     margin-top: 20px;
