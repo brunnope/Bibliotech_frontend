@@ -16,27 +16,23 @@ function Login() {
         e.preventDefault();
 
         try {
-        const response = await api.get("/usuarios");
-        const usuario = response.data.find(u => u.email === email && u.senha === senha);
+            const response = await api.post("/usuarios/login", { email, senha });
 
-        if (!usuario) {
-            setMensagem("E-mail ou senha incorretos!");
-            return;
-        }
+            const usuario = response.data;
+            
+            localStorage.setItem("usuario", JSON.stringify(usuario));
 
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-
-
-        if (usuario.roles[0].role === "ADMINISTRADOR") {
+            if (usuario.role.role === "ADMINISTRADOR") {
             navigate("/admin/home");
-        } else if (usuario.roles[0].role === "USER") {
+            } else if (usuario.role.role === "USER") {
             navigate("/usuario/home");
-        }
+            }
         } catch (error) {
-        console.error("Erro ao simular login:", error);
-        alert("Erro ao realizar login.");
+            console.error("Erro ao realizar login:", error);
+            setMensagem("Login ou senha inválidos.");
         }
-    };
+    }
+
 
     return (
         <div className="login-vertical-center">
