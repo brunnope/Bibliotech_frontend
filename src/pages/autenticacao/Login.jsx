@@ -4,6 +4,7 @@ import api from "../../services/api";
 import Logo from "../../assets/slogan_completa.png";;
 import Button from "../../components/button/Button";
 import InputField from "../../components/input/InputField";
+import { setUsuarioLocalStorage } from "../../services/authService";
 import "./Auth.css"
 
 function Login() {
@@ -20,12 +21,12 @@ function Login() {
 
             const usuario = response.data;
             
-            localStorage.setItem("usuario", JSON.stringify(usuario));
+            setUsuarioLocalStorage(usuario);
 
             if (usuario.role.role === "ADMINISTRADOR") {
-            navigate("/admin/home");
+                navigate("/admin/home");
             } else if (usuario.role.role === "USER") {
-            navigate("/usuario/home");
+                navigate("/usuario/home");
             }
         } catch (error) {
             console.error("Erro ao realizar login:", error);

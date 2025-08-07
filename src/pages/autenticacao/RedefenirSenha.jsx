@@ -20,6 +20,9 @@ function RedefinirSenha() {
       });
 
         setMensagem(resposta.data);
+        setTimeout(() => {
+        navigate("/");
+        }, 2000);
         
     } catch (erro) {
     if (erro.response && erro.response.data) {

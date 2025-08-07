@@ -40,7 +40,7 @@ function CadastroUsuario() {
         setMensagem("Usuário cadastrado com sucesso!");
         setTimeout(() => {
         navigate("/");
-    }, 2000);
+        }, 2000);
     } catch (error) {
         setMensagem("Erro ao cadastrar usuário.");
     }
