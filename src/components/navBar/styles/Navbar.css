@@ -122,7 +122,7 @@
 }
 
 @media (max-width: 550px) {
-  .container-navbar img {
+  #logo-bibliotech {
     display: none;
   }
 
@@ -143,6 +143,6 @@
   }
 
   .navbar-profile {
-    margin-left: auto;
+    justify-content: flex-end;
   }
 }

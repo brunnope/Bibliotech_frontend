@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <nav className="container-navbar" data-bs-theme="dark">
       <div className="container-fluid">
-        <img src={Logo_NavBar} alt="logo-bibliotech" onClick={handleNavegationImg} />
+        <img id={'logo-bibliotech'} src={Logo_NavBar} alt="logo-bibliotech" onClick={handleNavegationImg} />
 
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav me-auto">
