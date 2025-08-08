@@ -4,6 +4,7 @@ import Lixeira from "../../assets/lixeira.png";
 import api from "../../services/api.js";
 import InputField from "../../components/input/InputField.jsx";
 import Button from "../../components/button/Button.jsx";
+import Mensagem from "../../components/mensagem/Mensagem.jsx";
 
 function CadastroExemplar() {
   const { id } = useParams();
@@ -23,6 +24,7 @@ function CadastroExemplar() {
   const [editoraId, setEditoraId] = useState("");
   const [capaImg, setCapaImg] = useState("");
   const [contracapaImg, setContracapaImg] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   const navigate = useNavigate();
 
@@ -46,19 +48,27 @@ function CadastroExemplar() {
     };
     
     if (quantidadeDisponivel > quantidadeTotal){
-        alert("Quantidade disponível não pode ser maior que total!")
+        setMensagem("Erro! Quantidade disponível não pode ser maior que total!")
     }
     else{
         if (editar) {
-      await api.put(`/exemplares/${exemplar.idExemplar}`, exemplarData);
-      alert("Exemplar atualizado com suucesso!");
-      navigate("/admin/home");
+          await api.put(`/exemplares/${exemplar.idExemplar}`, exemplarData);
+          setMensagem("Exemplar atualizado com sucesso!");
+          setTimeout(() => {
+            navigate("/admin/home")
+          }, 1500)
+
     } else {
-      await api.post("/exemplares", exemplarData);
-      
-      limparCampos();
-      alert("Exemplar cadastrado com suucesso!");
-      getUltimoExemplar();
+        await api.post("/exemplares", exemplarData);
+
+        setMensagem("Exemplar criado com sucesso!");
+
+        setTimeout(() => {
+          setMensagem("");
+        }, 2000);
+
+        limparCampos();
+        getUltimoExemplar();
     }
     }
   }
@@ -261,6 +271,8 @@ function CadastroExemplar() {
           onChange={(e) => setContracapaImg(e.target.value)}
           placeholder="URL da contracapa"
         />
+
+        <Mensagem mensagem={mensagem} />
 
         <Button text="Salvar" type="submit" id="btn-salvar" />
         <Button text="Limpar" type="button" onClick={limparCampos} />

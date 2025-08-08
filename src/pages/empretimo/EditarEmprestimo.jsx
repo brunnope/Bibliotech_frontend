@@ -4,9 +4,10 @@ import api from "../../services/api.js";
 import InputField from "../../components/input/InputField.jsx";
 import Button from "../../components/button/Button.jsx";
 import "./styles/EditarEmprestimo.css";
+import Mensagem from "../../components/mensagem/Mensagem.jsx";
 
 function EditarEmprestimo() {
-    const { id } = useParams(); // id do emprestimo
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [emprestimo, setEmprestimo] = useState(null);
@@ -17,6 +18,7 @@ function EditarEmprestimo() {
     const [status, setStatus] = useState("");
     const [exemplarId, setExemplarId] = useState("");
     const [usuarioId, setUsuarioId] = useState("");
+    const [mensagem, setMensagem] = useState("");
 
 
     const hoje = new Date().toLocaleDateString("en-CA");
@@ -37,9 +39,9 @@ function EditarEmprestimo() {
         e.preventDefault();
 
         if (dataPrevistaDevolucao <= dataEmprestimo){
-            alert("Data de previsão deve ser maior que data de empréstimo!")
-        } else if (dataDevolucao <= dataEmprestimo){
-            alert("Data de devolução deve ser maior que data de empréstimo!")
+            setMensagem("Erro! Data de previsão deve ser maior que data de empréstimo!")
+        } else if (dataDevolucao <= dataEmprestimo && status === "DEVOLVIDO" || dataDevolucao <= dataEmprestimo ){
+            setMensagem("Erro! Data de devolução deve ser maior que data de empréstimo!")
         }else{
             await api.put(`/emprestimos/${id}`, {
                 dataEmprestimo,
@@ -49,8 +51,11 @@ function EditarEmprestimo() {
                 exemplar: { idExemplar: exemplarId },
                 usuario: { idUsuario: usuarioId }
             });
-    
-            navigate("/emprestimos");
+
+            setMensagem("Empréstimo atualizado com sucesso!");
+            setTimeout(() => {
+                navigate("/emprestimos")
+            }, 1500);
         }
 
     }
@@ -154,6 +159,8 @@ function EditarEmprestimo() {
                         min={1}
                         onChange={(e) => setUsuarioId(e.target.value)}
                     />
+
+                    <Mensagem mensagem={mensagem} />
 
                     <Button text="Salvar" type="submit" />
                     <Button text="Cancelar" type="button" onClick={cancelar} />

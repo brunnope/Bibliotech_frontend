@@ -37,10 +37,10 @@ createRoot(document.getElementById("root")).render(
           <Route path="/editar-livro/:id" element={<CadastroLivro />} />
           <Route path="/livros" element={<ListarLivros />} />
           <Route path="/usuarios" element={<ListarUsuarios />} />
-          <Route path="/emprestimos" element={<ListarEmprestimos />} />
+          <Route path="/emprestimos" element={<ListarEmprestimos isAdmin={true} />} />
           <Route path="/editar-emprestimo/:id" element={<EditarEmprestimo />} />
           <Route path="/admins" element={<ListarAdministradores />} />
-          <Route path="/historico" element={<ListarHistoricos />} />
+          <Route path="/historico" element={<ListarEmprestimos />} />
           <Route path="/perfil" element={<Perfil />} />
         </Route>
       </Routes>

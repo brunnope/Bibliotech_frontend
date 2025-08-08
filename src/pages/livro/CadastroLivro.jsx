@@ -5,6 +5,7 @@ import Lixeira from "../../assets/lixeira.png";
 import api from "../../services/api.js";
 import InputField from "../../components/input/InputField.jsx";
 import Button from "../../components/button/Button.jsx";
+import Mensagem from "../../components/mensagem/Mensagem.jsx";
 
 function CadastroLivro() {
   const { id } = useParams();
@@ -17,6 +18,8 @@ function CadastroLivro() {
   const [categoria, setCategoria] = useState("");
   const [isbn, setIsbn] = useState("");
   const [dataCadastro, setDataCadastro] = useState("");
+  const [mensagem, setMensagem] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -37,7 +40,12 @@ function CadastroLivro() {
         isbn,
         dataCadastro,
       });
-      navigate("/");
+
+      setMensagem("Livro atualizado com sucesso!");
+      setTimeout(() => {
+        navigate("/livros")
+      }, 1500);
+
     }else {
       await api.post("/livros", {
       titulo,
@@ -47,11 +55,16 @@ function CadastroLivro() {
       dataCadastro,
     });
 
+    setMensagem("Livro criado com sucesso!");
+
+    setTimeout(() => {
+      setMensagem("");
+    }, 2000);
+
     limparCampos();
     getLivro();
     carregarCategorias();
     }
-    
   }
 
   function limparCampos() {
@@ -81,18 +94,18 @@ function CadastroLivro() {
     carregarCategorias();
 
     if (editar) {
-      navigate("/admin-home");
+      navigate("/livros");
     }
   }
 
   function cancelarCadastro() {
-    navigate("/admin/home");
+    navigate("/livros");
   }
 
   useEffect(() => {
     carregarCategorias();
     if (editar) {
-      // Se estamos editando, buscar o livro pelo ID
+
       api.get(`/livros/${id}`).then(response => {
         const livro = response.data;
         setLivro(livro);
@@ -169,6 +182,8 @@ function CadastroLivro() {
           min="2020-01-01"
           max={dataMax}
         />
+
+        <Mensagem mensagem={mensagem} />
 
         <Button
           text="Salvar"

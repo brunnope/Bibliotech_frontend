@@ -21,7 +21,7 @@ function RedefinirSenha() {
 
         setMensagem(resposta.data);
         setTimeout(() => {
-        navigate("/");
+        navigate("/");  
         }, 2000);
         
     } catch (erro) {

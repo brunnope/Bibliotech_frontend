@@ -52,7 +52,10 @@ const Navbar = () => {
               ]} />
             )}
 
-            <NavbarItem to="/historico" label="Histórico" />
+            {role === "USER" && (
+              <NavbarItem to="/historico" label="Histórico" />
+              )
+            }
 
             <li className="nav-item">
               <button onClick={handleLogout} className="btn-sair">Sair</button>

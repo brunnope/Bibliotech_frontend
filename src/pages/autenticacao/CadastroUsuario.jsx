@@ -15,14 +15,15 @@ function CadastroUsuario() {
   const [mensagem, setMensagem] = useState("");
   const [primeiroAcesso, setPrimeiroAcesso] = useState(true);
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState(null);
   const [id, setId] = useState(0);
   const [role, setRole] = useState("");
 
   async function handleCadastro(e) {
     e.preventDefault();
 
-    if (senha !== confirmacaoSenha) {
+      console.log({ id, role });
+
+      if (senha !== confirmacaoSenha) {
         setMensagem("As senhas não coincidem!");
         return;
     }
@@ -33,8 +34,10 @@ function CadastroUsuario() {
             matricula,
             email,
             senha,
-            roles: [{id: id,
-                role: role}]
+            role: {
+                id: id,
+                role: role
+            }
         });
 
         setMensagem("Usuário cadastrado com sucesso!");
@@ -46,27 +49,21 @@ function CadastroUsuario() {
     }
   }
 
-   async function obterPrimeiroUser() {
-    try {
-        const responseUsuario = await api.get("/usuarios/1");
-        const usuarioEncontrado = responseUsuario.data;
+    async function obterPrimeiroUser() {
+        try {
+            await api.get("/usuarios/1");
 
-        if (usuarioEncontrado) {
-            setUsuario(usuarioEncontrado);
             setPrimeiroAcesso(false);
+            setRole("USER");
+            setId(2);
+        } catch (error) {
 
-            const response = await api.get("/roles/2");
-            setRole(response.data.role);
-            setId(response.data.id);
+            setPrimeiroAcesso(true);
+            setRole("ADMINISTRADOR");
+            setId(1);
         }
-    } catch (error) {
-        setPrimeiroAcesso(true);
-
-        const response = await api.get("/roles/1");
-        setRole(response.data.role);
-        setId(response.data.id);
     }
-}
+
 
     useEffect(() => {
         obterPrimeiroUser();
