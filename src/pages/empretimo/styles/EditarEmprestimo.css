@@ -5,5 +5,9 @@
 }
 
 .opcoes > label{
-    margin-right: 20px;
+    margin-right: 10px;
+}
+
+.opcoes > label > input{
+    margin-right: 5px;
 }

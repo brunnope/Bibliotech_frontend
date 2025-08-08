@@ -36,16 +36,23 @@ function EditarEmprestimo() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        await api.put(`/emprestimos/${id}`, {
-            dataEmprestimo,
-            dataPrevistaDevolucao,
-            dataDevolucao,
-            status,
-            exemplar: { idExemplar: exemplarId },
-            usuario: { idUsuario: usuarioId }
-        });
+        if (dataPrevistaDevolucao <= dataEmprestimo){
+            alert("Data de previsão deve ser maior que data de empréstimo!")
+        } else if (dataDevolucao <= dataEmprestimo){
+            alert("Data de devolução deve ser maior que data de empréstimo!")
+        }else{
+            await api.put(`/emprestimos/${id}`, {
+                dataEmprestimo,
+                dataPrevistaDevolucao,
+                dataDevolucao,
+                status,
+                exemplar: { idExemplar: exemplarId },
+                usuario: { idUsuario: usuarioId }
+            });
+    
+            navigate("/emprestimos");
+        }
 
-        navigate("/emprestimos");
     }
 
     function cancelar() {
@@ -63,24 +70,26 @@ function EditarEmprestimo() {
                     <h1>Editar Empréstimo</h1>
 
                     <InputField
-                        label="Data do Empréstimo"
+                        label="Data do Empréstimo*"
                         name="dataEmprestimo"
                         type="date"
                         value={dataEmprestimo}
                         max={hoje}
+                        required={true}
                         onChange={(e) => setDataEmprestimo(e.target.value)}
                     />
 
                     <InputField
-                        label="Data Prevista de Devolução"
+                        label="Data Prevista de Devolução*"
                         name="dataPrevistaDevolucao"
                         type="date"
                         value={dataPrevistaDevolucao}
+                        required={true}
                         onChange={(e) => setDataPrevistaDevolucao(e.target.value)}
                     />
 
                     <InputField
-                        label="Data de Devolução"
+                        label="Data de Devolução*"
                         name="dataDevolucao"
                         type="date"
                         value={dataDevolucao}
@@ -88,7 +97,7 @@ function EditarEmprestimo() {
                     />
 
                     <div className={"radio-group"}>
-                        <label id={"label-radio"}>Status</label>
+                        <label id={"label-radio"}>Status*</label>
                         <div className="opcoes">
                             <label>
                                 <input
@@ -125,21 +134,23 @@ function EditarEmprestimo() {
 
 
                     <InputField
-                        label="Número Exemplar"
+                        label="Número Exemplar*"
                         name="exemplar"
                         placeholder="Número do exemplar"
                         type={"Number"}
                         value={exemplarId}
+                        required={true}
                         min={1}
                         onChange={(e) => setExemplarId(e.target.value)}
                     />
 
                     <InputField
-                        label="Id Usuário"
+                        label="Id Usuário*"
                         name="usuario"
                         type={"Number"}
                         placeholder="Id do usuário"
                         value={usuarioId}
+                        required={true}
                         min={1}
                         onChange={(e) => setUsuarioId(e.target.value)}
                     />

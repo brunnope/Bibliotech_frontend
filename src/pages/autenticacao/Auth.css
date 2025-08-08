@@ -3,18 +3,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .login-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 400px;
+    gap: 300px;
     margin: 40px 0px;
     width: 100%;
     max-width: 100%;
     min-height: 600px;
-    max-height: 700px;
+    max-height: 750px;
     background-color: #ffffff;
     border: 2px solid #4CAF50;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -91,7 +92,7 @@
     width: 340px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1165px) {
   .login-container {
     flex-direction: column;
     gap: 32px;

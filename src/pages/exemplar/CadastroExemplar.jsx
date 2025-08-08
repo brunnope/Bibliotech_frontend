@@ -4,7 +4,6 @@ import Lixeira from "../../assets/lixeira.png";
 import api from "../../services/api.js";
 import InputField from "../../components/input/InputField.jsx";
 import Button from "../../components/button/Button.jsx";
-import "../../components/input/InputField.css"
 
 function CadastroExemplar() {
   const { id } = useParams();
@@ -48,18 +47,20 @@ function CadastroExemplar() {
     
     if (quantidadeDisponivel > quantidadeTotal){
         alert("Quantidade disponível não pode ser maior que total!")
-    }else{
+    }
+    else{
         if (editar) {
       await api.put(`/exemplares/${exemplar.idExemplar}`, exemplarData);
+      alert("Exemplar atualizado com suucesso!");
       navigate("/admin/home");
     } else {
       await api.post("/exemplares", exemplarData);
+      
       limparCampos();
+      alert("Exemplar cadastrado com suucesso!");
       getUltimoExemplar();
     }
     }
-
-    
   }
 
   function limparCampos() {
@@ -182,15 +183,31 @@ function CadastroExemplar() {
           placeholder={"Idioma"}
         />
 
-        <InputField
-          label="Disponibilidade*"
-          name="disponibilidade"
-          placeholder="DISPONIVEL ou INDISPONIVEL"
-          value={disponibilidade}
-          required
-          maxLength={20}
-          onChange={(e) => setDisponibilidade(e.target.value)}
-        />
+        <div >
+                        <label id={"label-radio"}>Status*</label>
+                        <div className="opcoes">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="DISPONIVEL"
+                                    checked={disponibilidade === "DISPONIVEL"}
+                                    onChange={(e) => setDisponibilidade(e.target.value)}
+                                />
+                                Disponível
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="INDISPONIVEL"
+                                    checked={disponibilidade === "INDISPONIVEL"}
+                                    onChange={(e) => setDisponibilidade(e.target.value)}
+                                />
+                                Indisponível
+                            </label>
+                        </div>
+                    </div>
 
         <div className="input-field">
             <label htmlFor="livroId">Livro*</label>

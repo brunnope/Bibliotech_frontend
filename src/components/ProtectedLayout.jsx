@@ -16,6 +16,7 @@ const ProtectedLayout = () => {
           textAlign: "center",
           padding: "10px 0",
           borderTop: "1px solid #ddd",
+          boxShadow: "0px -1px 4px rgba(0, 0, 0, 0.30)" 
         }}
       >
         &copy; {currentYear} Bibliotech

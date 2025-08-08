@@ -52,6 +52,22 @@ function DataTable({ title, columns, data, onEdit, onDelete, onAdd, onEmprestimo
                                     );
                                 }
 
+                                if (col.field === "status"){
+                                    return (
+                                        <td
+                                            key={i} 
+                                            style={{
+                                                color: value === "DEVOLVIDO" ? "green" :
+                                                        value === "PENDENTE" ? "black" :
+                                                        "red",
+                                                fontWeight: "bold"
+                                                }}
+                                        >
+                                            {value}
+                                        </td>
+                                    );
+                                }
+
                                 return <td key={i}>{value}</td>;
                             })}
                             {actions && (

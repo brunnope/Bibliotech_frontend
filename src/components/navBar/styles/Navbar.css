@@ -6,6 +6,7 @@
   justify-content: space-between;
   height: 60px;
   color: black;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.30);
 }
 
 .container-navbar .container-fluid {
