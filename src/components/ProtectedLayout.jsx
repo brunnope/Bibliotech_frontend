@@ -2,7 +2,7 @@ import Navbar from "./navBar/Navbar";
 import { Outlet } from "react-router-dom";
 
 const ProtectedLayout = () => {
-  const currentYear = new Date().getFullYear(); // Obtém o ano atual dinamicamente
+  const currentYear = new Date().getFullYear(); 
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>

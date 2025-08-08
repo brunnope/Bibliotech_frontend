@@ -10,6 +10,11 @@ import CadastroLivro from "./pages/livro/CadastroLivro.jsx";
 import ProtectedLayout from "./components/ProtectedLayout.jsx";
 import ListarExemplares from "./pages/exemplar/ListarExemplares.jsx";
 import CadastroExemplar from "./pages/exemplar/CadastroExemplar.jsx";
+import ListarUsuarios from "./pages/usuario/ListarUsuarios.jsx";
+import ListarEmprestimos from "./pages/empretimo/ListarEmprestimos.jsx";
+import ListarAdministradores from "./pages/administrador/ListarAdministrador.jsx";
+import ListarHistoricos from "./pages/historico/ListarHistorico.jsx";
+import Perfil from "./pages/perfil/Perfil.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -30,6 +35,11 @@ createRoot(document.getElementById("root")).render(
           <Route path="/cadastro-livro" element={<CadastroLivro />} />
           <Route path="/editar-livro/:id" element={<CadastroLivro />} />
           <Route path="/livros" element={<ListarLivros />} />
+          <Route path="/usuarios" element={<ListarUsuarios />} />
+          <Route path="/emprestimos" element={<ListarEmprestimos />} />
+          <Route path="/admins" element={<ListarAdministradores />} />
+          <Route path="/historico" element={<ListarHistoricos />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Route>
       </Routes>
     </BrowserRouter>
