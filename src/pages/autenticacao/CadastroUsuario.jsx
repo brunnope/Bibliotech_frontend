@@ -91,7 +91,7 @@ function CadastroUsuario() {
               value={nome}
               required={true}
               onChange={(e) => setNome(e.target.value)}
-              placeholder={"João da Silva"}
+              placeholder={"Nome Completo"}
             />
             <InputField
               label="Matrícula*"
@@ -103,7 +103,7 @@ function CadastroUsuario() {
               pattern="^\d{12}$"
               maxLength={12}
               inputMode="numeric"
-              placeholder={"123456789012"}
+              placeholder={"000000000000"}
               title="A matrícula deve conter exatamente 12 números."
             />
 
@@ -114,7 +114,7 @@ function CadastroUsuario() {
               value={email}
               required={true}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={"joao@gmail.com"}
+              placeholder={"aaaa@gmail.com"}
             />
             <InputField
               label="Senha*"
@@ -124,7 +124,7 @@ function CadastroUsuario() {
               required={true}
               onChange={(e) => setSenha(e.target.value)}
               minLength={8}
-              placeholder={"joao1234"}
+              placeholder={"Mínimo 8 caracteres"}
             />
             <InputField
               label="Confirmação de Senha*"
@@ -134,7 +134,7 @@ function CadastroUsuario() {
               required={true}
               onChange={(e) => setConfirmacaoSenha(e.target.value)}
               minLength={8}
-              placeholder={"joao1234"}
+              placeholder={"Repita a senha"}
             />
 
             {mensagem && (

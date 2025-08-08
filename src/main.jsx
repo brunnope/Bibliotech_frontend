@@ -8,6 +8,8 @@ import CadastroUsuario from "./pages/autenticacao/CadastroUsuario.jsx";
 import ListarLivros from "./pages/livro/ListarLivros.jsx";
 import CadastroLivro from "./pages/livro/CadastroLivro.jsx";
 import ProtectedLayout from "./components/ProtectedLayout.jsx";
+import ListarExemplares from "./pages/exemplar/ListarExemplares.jsx";
+import CadastroExemplar from "./pages/exemplar/CadastroExemplar.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -21,10 +23,13 @@ createRoot(document.getElementById("root")).render(
 
         
         <Route element={<ProtectedLayout />}>
-          <Route path="/admin/home" element={<ListarLivros />} />
-          <Route path="/usuario/home" element={<ListarLivros />} />
-          <Route path="/editar/:id" element={<CadastroLivro />} />
-          <Route path="/cadastro" element={<CadastroLivro />} />
+          <Route path="/admin/home" element={<ListarExemplares isAdmin={true}/>} />
+          <Route path="/usuario/home" element={<ListarExemplares />} />
+          <Route path="/cadastro-exemplar" element={<CadastroExemplar />} />
+          <Route path="/editar-exemplar/:id" element={<CadastroExemplar />} />
+          <Route path="/cadastro-livro" element={<CadastroLivro />} />
+          <Route path="/editar-livro/:id" element={<CadastroLivro />} />
+          <Route path="/livros" element={<ListarLivros />} />
         </Route>
       </Routes>
     </BrowserRouter>

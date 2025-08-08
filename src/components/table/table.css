@@ -1,5 +1,6 @@
 .container-table {
     padding: 16px;
+    margin-top: 10px;
 }
 
 .container-table h1 {
@@ -39,7 +40,9 @@
 }
 
 .editar-btn,
-.excluir-btn {
+.excluir-btn,
+.visualizar-btn,
+.emprestar-btn{
     background: none;
     border: none;
     cursor: pointer;
@@ -48,7 +51,7 @@
 }
 
 .editar-btn img,
-.excluir-btn img {
+.excluir-btn img{
     width: 25px;
     height: 25px;
 }

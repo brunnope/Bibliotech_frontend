@@ -30,8 +30,8 @@ function ListarLivros() {
         { field: "dataCadastro", label: "Data de Cadastro" },
       ]}
       idField="idLivro"
-      onAdd={() => navigate("/cadastro")}
-      onEdit={(id) => navigate(`/editar/${id}`)}
+      onAdd={() => navigate("/cadastro-livro")}
+      onEdit={(id) => navigate(`/editar-livro/${id}`)}
       onDelete={(id) => {
         if (window.confirm("Tem certeza que deseja excluir?")) {
           api.delete(`/livros/${id}`).then(() =>

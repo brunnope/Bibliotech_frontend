@@ -9,11 +9,15 @@
   color: #333;
 }
 
-.input-field input {
+.input-field input,select {
   border: 1px solid #4CAF50;
   border-radius: 30px;
   height: 40px;
   background-color: #f6f5f5;
   padding-left: 10px;
   outline: none;
+}
+
+#editora-label{
+  margin-top: 10px;
 }
