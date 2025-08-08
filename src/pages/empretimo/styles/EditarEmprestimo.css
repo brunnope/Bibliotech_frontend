@@ -1,0 +1,9 @@
+#label-radio{
+    margin-bottom: 2px;
+    font-weight: bold;
+    color: #333;
+}
+
+.opcoes > label{
+    margin-right: 20px;
+}

@@ -15,6 +15,7 @@ import ListarEmprestimos from "./pages/empretimo/ListarEmprestimos.jsx";
 import ListarAdministradores from "./pages/administrador/ListarAdministrador.jsx";
 import ListarHistoricos from "./pages/historico/ListarHistorico.jsx";
 import Perfil from "./pages/perfil/Perfil.jsx";
+import EditarEmprestimo from "./pages/empretimo/EditarEmprestimo.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -37,6 +38,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/livros" element={<ListarLivros />} />
           <Route path="/usuarios" element={<ListarUsuarios />} />
           <Route path="/emprestimos" element={<ListarEmprestimos />} />
+          <Route path="/editar-emprestimo/:id" element={<EditarEmprestimo />} />
           <Route path="/admins" element={<ListarAdministradores />} />
           <Route path="/historico" element={<ListarHistoricos />} />
           <Route path="/perfil" element={<Perfil />} />
