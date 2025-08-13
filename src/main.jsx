@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Login from "./pages/autenticacao/Login.jsx";
 import RedefinirSenha from "./pages/autenticacao/RedefenirSenha.jsx";
-import CadastroUsuario from "./pages/autenticacao/CadastroUsuario.jsx";
+import CadastroUsuarioLogin from "./pages/autenticacao/CadastroUsuarioLogin.jsx";
 import ListarLivros from "./pages/livro/ListarLivros.jsx";
 import CadastroLivro from "./pages/livro/CadastroLivro.jsx";
 import ProtectedLayout from "./components/ProtectedLayout.jsx";
@@ -14,7 +14,7 @@ import ListarUsuarios from "./pages/usuario/ListarUsuarios.jsx";
 import ListarEmprestimos from "./pages/empretimo/ListarEmprestimos.jsx";
 import ListarAdministradores from "./pages/administrador/ListarAdministrador.jsx";
 import ListarHistoricos from "./pages/historico/ListarHistorico.jsx";
-import Perfil from "./pages/perfil/Perfil.jsx";
+import CadastroUsuario from "./pages/usuario/CadastroUsuario.jsx";
 import EditarEmprestimo from "./pages/empretimo/EditarEmprestimo.jsx";
 
 
@@ -25,7 +25,7 @@ createRoot(document.getElementById("root")).render(
         
         <Route path="/" element={<Login />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
-        <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
+        <Route path="/cadastro-usuario-login" element={<CadastroUsuarioLogin />} />
 
         
         <Route element={<ProtectedLayout />}>
@@ -37,11 +37,16 @@ createRoot(document.getElementById("root")).render(
           <Route path="/editar-livro/:id" element={<CadastroLivro />} />
           <Route path="/livros" element={<ListarLivros />} />
           <Route path="/usuarios" element={<ListarUsuarios />} />
+          <Route path="/admins" element={<ListarUsuarios isAdmin={true} />} />
+          <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
+          <Route path="/editar-usuario/:id" element={<CadastroUsuario />} />
+          <Route path="/cadastro-admin" element={<CadastroUsuario isAdmin={true}/>} />
+          <Route path="/editar-admin/:id" element={<CadastroUsuario isAdmin={true}/>} />
           <Route path="/emprestimos" element={<ListarEmprestimos isAdmin={true} />} />
           <Route path="/editar-emprestimo/:id" element={<EditarEmprestimo />} />
           <Route path="/admins" element={<ListarAdministradores />} />
           <Route path="/historico" element={<ListarEmprestimos />} />
-          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/:id" element={<CadastroUsuario isPerfil={true} />} />
         </Route>
       </Routes>
     </BrowserRouter>

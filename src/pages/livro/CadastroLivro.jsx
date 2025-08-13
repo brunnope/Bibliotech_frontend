@@ -116,7 +116,7 @@ function CadastroLivro() {
         setDataCadastro(livro.dataCadastro);
       });
     }
-  }, []);
+  }, [editar, id]);
 
   return (
     <div className="cadastro-container">

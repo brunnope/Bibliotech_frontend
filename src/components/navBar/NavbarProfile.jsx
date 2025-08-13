@@ -1,13 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo_perfil from "../../assets/perfil-preto.png"
+import {getUsuarioLocalStorage} from "../../services/authService.js";
 
  function NavbarProfile() {
   const navigate = useNavigate();
 
   const goToPerfil = () => {
-    navigate("/perfil");
+    const userData = getUsuarioLocalStorage();
+    if (userData) {
+        navigate(`/perfil/${userData.idUsuario}`);
+    }
   };
+
+
 
   return (
     <div className="container-perfil">

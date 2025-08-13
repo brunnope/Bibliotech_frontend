@@ -5,6 +5,7 @@ import InputField from "../../components/input/InputField.jsx";
 import Button from "../../components/button/Button.jsx";
 import "./styles/EditarEmprestimo.css";
 import Mensagem from "../../components/mensagem/Mensagem.jsx";
+import Lixeira from "../../assets/lixeira.png";
 
 function EditarEmprestimo() {
     const { id } = useParams();
@@ -64,6 +65,11 @@ function EditarEmprestimo() {
         navigate("/emprestimos");
     }
 
+    async function excluirEmprestimo(id) {
+        await api.delete(`/emprestimos/${id}`);
+        navigate("/emprestimos");
+    }
+
     useEffect(() => {
         carregarEmprestimo();
     }, []);
@@ -71,6 +77,7 @@ function EditarEmprestimo() {
     return (
         <div className="cadastro-container">
             {emprestimo && (
+                <>
                 <form className="form-cadastro" onSubmit={handleSubmit}>
                     <h1>Editar Empréstimo</h1>
 
@@ -162,9 +169,45 @@ function EditarEmprestimo() {
 
                     <Mensagem mensagem={mensagem} />
 
+
                     <Button text="Salvar" type="submit" />
                     <Button text="Cancelar" type="button" onClick={cancelar} />
                 </form>
+
+                <div key={emprestimo.idEmprestimo} className="card">
+                    <>
+                        <p>
+                            Usuário: <span>{emprestimo.usuario.nome}</span>
+                        </p>
+                        <p>
+                            Email: <span>{emprestimo.usuario.email}</span>
+                        </p>
+                        <p>
+                            Livro: <span>{emprestimo.exemplar.livro.titulo}</span>
+                        </p>
+                        <p>
+                            Nº Exemplar: <span>{emprestimo.exemplar.numExemplar}</span>
+                        </p>
+                        <p>
+                            Data do Empréstimo: <span>{emprestimo.dataEmprestimo}</span>
+                        </p>
+                        <p>
+                            Data Prevista de Devolução: <span>{emprestimo.dataPrevistaDevolucao}</span>
+                        </p>
+                        <p>
+                            Data de Devolução: <span>{emprestimo.dataDevolucao || "Não informada"}</span>
+                        </p>
+                        <p>
+                            Status: <span>{emprestimo.status}</span>
+                        </p>
+                    </>
+                    <Button
+                        type="button"
+                        onClick={() => excluirEmprestimo(emprestimo.idEmprestimo)}
+                        img={Lixeira}
+                    />
+                </div>
+                </>
             )}
         </div>
     );

@@ -9,7 +9,6 @@ import "./styles/Navbar.css"
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState(null);
   const [role, setRole] = useState(null);
 
 
@@ -29,7 +28,6 @@ const Navbar = () => {
   useEffect(() => {
     const userData = getUsuarioLocalStorage();
     if (userData) {
-      setUsuario(userData);
       setRole(userData.role.role);
     }
   }, []);
@@ -45,9 +43,9 @@ const Navbar = () => {
 
             {role === "ADMINISTRADOR" && (
               <NavbarItemDropdown label="Gerência" items={[
-                { to: "/usuarios", label: "Usuários" },
                 { to: "/livros", label: "Livros" },
                 { to: "/emprestimos", label: "Empréstimos" },
+            { to: "/usuarios", label: "Usuários" },
                 { to: "/admins", label: "Administradores" },
               ]} />
             )}

@@ -6,7 +6,7 @@ import Button from "../../components/button/Button";
 import InputField from "../../components/input/InputField";
 import "./Auth.css";
 
-function CadastroUsuario() {
+function CadastroUsuarioLogin() {
   const [nome, setNome] = useState("");
   const [matricula, setMatricula] = useState("");
   const [email, setEmail] = useState("");
@@ -20,8 +20,6 @@ function CadastroUsuario() {
 
   async function handleCadastro(e) {
     e.preventDefault();
-
-      console.log({ id, role });
 
       if (senha !== confirmacaoSenha) {
         setMensagem("As senhas não coincidem!");
@@ -163,4 +161,4 @@ function CadastroUsuario() {
   );
 }
 
-export default CadastroUsuario;
+export default CadastroUsuarioLogin;

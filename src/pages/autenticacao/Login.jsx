@@ -77,7 +77,7 @@ function Login() {
                             type="submit"
                         /> 
                         
-                        <a onClick={() => navigate('/cadastro-usuario')}>Não possui uma conta?</a>
+                        <a onClick={() => navigate('/cadastro-usuario-login')}>Não possui uma conta?</a>
                         <a onClick={() => navigate('/redefinir-senha')}>Redefenir senha</a>
                     </form>
                     
