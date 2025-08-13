@@ -34,7 +34,7 @@ function ListarExemplares({ isAdmin }) {
         const exemplarResponse = await api.get(`/exemplares/${idExemplar}`);
         const exemplar = exemplarResponse.data;
 
-        if (exemplar.quantidadeDisponivel <= 0) {
+        if (exemplar.quantidadeDisponivel <= 0 || exemplar.disponibilidade === "INDISPONIVEL") {
             alert("O exemplar selecionado está indisponível no momento.");
             return;
         }

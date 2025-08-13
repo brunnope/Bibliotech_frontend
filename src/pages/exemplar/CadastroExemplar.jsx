@@ -29,49 +29,59 @@ function CadastroExemplar() {
   const navigate = useNavigate();
 
   function handleSubmit(e) {
-    e.preventDefault();
-    salvarExemplar();
+      e.preventDefault();
+
+      if (parseInt(quantidadeDisponivel, 10) > parseInt(quantidadeTotal, 10)) {
+          setMensagem("Erro! Quantidade disponível não pode ser maior que a quantidade total!");
+      } else{
+          salvarExemplar();
+      }
   }
 
   async function salvarExemplar() {
     const exemplarData = {
-      anoPublicacao,
-      numExemplar,
-      quantidadeTotal,
-      quantidadeDisponivel,
-      idioma,
-      disponibilidade,
-      livro: { idLivro: livroId },
-      editora: { idEditora: editoraId },
-      capaImg,
-      contracapaImg,
+        anoPublicacao,
+        numExemplar,
+        quantidadeTotal,
+        quantidadeDisponivel,
+        idioma,
+        disponibilidade,
+        livro: { idLivro: livroId },
+        editora: { idEditora: editoraId },
+        capaImg,
+        contracapaImg,
     };
-    
-    if (quantidadeDisponivel > quantidadeTotal){
-        setMensagem("Erro! Quantidade disponível não pode ser maior que total!")
+
+
+      try{
+          if (editar) {
+              await api.put(`/exemplares/${exemplar.idExemplar}`, exemplarData);
+              setMensagem("Exemplar atualizado com sucesso!");
+              setTimeout(() => {
+                  navigate("/admin/home");
+              }, 1500);
+          } else {
+              await api.post("/exemplares", exemplarData);
+
+              setMensagem("Exemplar criado com sucesso!");
+
+              setTimeout(() => {
+                  setMensagem("");
+              }, 2000);
+
+              limparCampos();
+              getUltimoExemplar();
+          }
+    } catch (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+              setMensagem(error.response.data.message); // Mostra a mensagem personalizada
+          }
+          else {
+            setMensagem("Erro ao salvar o exemplar. Por favor, tente novamente."); // Mensagem genérica
+          }
     }
-    else{
-        if (editar) {
-          await api.put(`/exemplares/${exemplar.idExemplar}`, exemplarData);
-          setMensagem("Exemplar atualizado com sucesso!");
-          setTimeout(() => {
-            navigate("/admin/home")
-          }, 1500)
 
-    } else {
-        await api.post("/exemplares", exemplarData);
-
-        setMensagem("Exemplar criado com sucesso!");
-
-        setTimeout(() => {
-          setMensagem("");
-        }, 2000);
-
-        limparCampos();
-        getUltimoExemplar();
-    }
-    }
-  }
+}
 
   function limparCampos() {
     setAnoPublicacao("");

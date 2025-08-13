@@ -85,8 +85,11 @@ function CadastroUsuario({ isPerfil = false, isAdmin = false }) {
                 getUltimoUsuario()
             }
         } catch (error) {
-            console.error(error);
-            setMensagem(editar ? "Erro ao atualizar usuário." : "Erro ao cadastrar usuário.");
+            if (error.response && error.response.data && error.response.data.message) {
+                setMensagem(error.response.data.message);
+            }else{
+                setMensagem(editar ? "Erro ao atualizar usuário." : "Erro ao cadastrar usuário.");
+            }
         }
     }
 
