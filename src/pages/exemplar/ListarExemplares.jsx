@@ -72,12 +72,6 @@ function ListarExemplares({ isAdmin }) {
         }
     }
 
-
-    const handleFiltrar = () => {
-        carregarExemplares();
-    };
-
-
     useEffect(() => {
         carregarExemplares();
     }, []);
@@ -88,7 +82,7 @@ function ListarExemplares({ isAdmin }) {
         <PageTitle>Lista de Exemplares</PageTitle>
 
         {/* FILTROS */}
-        <div className={"filtro"}>
+        <div className={"filtro-exemplar"}>
             <select
                 value={disponibilidade}
                 onChange={(e) => setDisponibilidade(e.target.value)}
@@ -105,7 +99,7 @@ function ListarExemplares({ isAdmin }) {
                 onChange={(e) => setTitulo(e.target.value)}
             />
 
-            <button onClick={handleFiltrar}>Filtrar</button>
+            <button onClick={carregarExemplares}>Filtrar</button>
         </div>
 
       {/* TABELA */}

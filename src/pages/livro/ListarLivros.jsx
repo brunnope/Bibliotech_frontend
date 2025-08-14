@@ -3,15 +3,22 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import DataTable from "../../components/table/table";
 import PageTitle from "../../components/pageTitle/PageTitle.jsx";
-
+import "./styles/ListarLivros.css";
 
 function ListarLivros() {
   const [livros, setLivros] = useState([]);
+  const [tituloOuAutor, setTituloOuAutor] = useState("");
+  const [categoria, setCategoria] = useState("");
   const navigate = useNavigate();
 
   async function getLivros() {
-    const response = await api.get("/livros");
-    setLivros(response.data);
+      const params = {};
+
+      if (tituloOuAutor) params.tituloOuAutor = tituloOuAutor;
+      if (categoria) params.categoria = categoria;
+
+      const response = await api.get("/livros", { params });
+      setLivros(response.data);
   }
 
    useEffect(() => {
@@ -21,6 +28,24 @@ function ListarLivros() {
   return (
       <>
         <PageTitle>Listagem de Livros</PageTitle>
+
+         <div className="filtro-livro">
+             <input
+                  type="text"
+                  placeholder="Buscar por título ou autor"
+                  value={tituloOuAutor}
+                  onChange={(e) => setTituloOuAutor(e.target.value)}
+             />
+
+             <input
+                  type="text"
+                  placeholder="Categoria"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+             />
+
+             <button onClick={getLivros}>Filtrar</button>
+         </div>
 
         <DataTable
           title="Listagem de Livros"

@@ -1,48 +1,47 @@
 /* Estilo para campos de filtragem */
 
-.filtro{
+.filtro-exemplar{
     position: relative;
     display: flex;
     gap: 1rem;
     height: 40px;
 }
 
-.filtro select{
+.filtro-exemplar select{
     margin: 0 16px;
     font-weight: bold;
     font-size: 14px;
     border-radius: 30px;
-    width: 220px;
+    width: 30vh;
     background-color: #ffffff;
     border: 1px solid #4CAF50;
 }
 
 
-.filtro select:hover {
+.filtro-exemplar select:hover {
     opacity: 0.8;
 }
 
-.filtro input{
+.filtro-exemplar input{
     border: 1px solid #4CAF50;
     border-radius: 30px;
-    height: 40px;
     background-color: #ffffff;
-    padding-left: 10px;
+    padding: 10px;
     outline: none;
     margin-left: -20px;
+    width: 30vh;
 }
 
-.filtro button{
+.filtro-exemplar button{
     border-radius: 30px;
-    width: 80px;
-    border: none;
+    width: 10vh;
     font-weight: bold;
     background-color: #ffffff;
     border: 1px solid #4CAF50;
-
+    margin-left: -10px;
 }
 
-.filtro button:hover {
+.filtro-exemplar button:hover {
     opacity: 0.8;
 }
 
