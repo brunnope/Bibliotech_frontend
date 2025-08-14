@@ -82,7 +82,10 @@ function ListarExemplares({ isAdmin }) {
         <PageTitle>Lista de Exemplares</PageTitle>
 
         {/* FILTROS */}
-        <div className={"filtro-exemplar"}>
+        <div className={"filtro-exemplar"}
+             style={{
+                 marginBottom: isAdmin ? "-20px" : "10px",
+             }}>
             <select
                 value={disponibilidade}
                 onChange={(e) => setDisponibilidade(e.target.value)}

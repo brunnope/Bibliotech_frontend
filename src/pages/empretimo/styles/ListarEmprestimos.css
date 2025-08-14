@@ -1,0 +1,47 @@
+/* Estilo para campos de filtragem */
+
+.filtro-emprestimo{
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.filtro-emprestimo select{
+    margin: 0 16px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 30px;
+    width: 30vh;
+    background-color: #ffffff;
+    border: 1px solid #4CAF50;
+}
+
+
+.filtro-emprestimo select:hover {
+    opacity: 0.8;
+}
+
+.filtro-emprestimo input{
+    border: 1px solid #4CAF50;
+    border-radius: 30px;
+    background-color: #ffffff;
+    padding: 10px;
+    outline: none;
+    margin-left: -20px;
+    width: 30vh;
+}
+
+.filtro-emprestimo button{
+    border-radius: 30px;
+    width: 10vh;
+    font-weight: bold;
+    background-color: #ffffff;
+    border: 1px solid #4CAF50;
+    margin-left: -10px;
+}
+
+.filtro-emprestimo button:hover {
+    opacity: 0.8;
+}

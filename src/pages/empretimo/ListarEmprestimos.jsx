@@ -3,21 +3,29 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import DataTable from "../../components/table/table";
 import PageTitle from "../../components/pageTitle/PageTitle.jsx";
+import "./styles/ListarEmprestimos.css";
 
 function ListarEmprestimos( { isAdmin } ) {
     const [emprestimos, setEmprestimos] = useState([]);
+    const [nomeOuMatricula, setNomeOuMatricula] = useState("");
+    const [status, setStatus] = useState("");
     const navigate = useNavigate();
 
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const usuarioId = usuario?.idUsuario
 
     async function getEmprestimos() {
+        const params = {};
+
+        if (status) params.status = status;
+        if (nomeOuMatricula) params.busca = nomeOuMatricula;
+
         try {
             let response;
             if (isAdmin) {
-                response = await api.get("/emprestimos");
+                response = await api.get("/emprestimos", { params });
             } else {
-                response = await api.get(`/emprestimos/usuario/${usuarioId}`);
+                response = await api.get(`/emprestimos/usuario/${usuarioId}`, { params });
             }
             setEmprestimos(response.data);
         } catch (error) {
@@ -32,6 +40,30 @@ function ListarEmprestimos( { isAdmin } ) {
     return (
         <>
             <PageTitle>Listagem de Empréstimos</PageTitle>
+
+            {/* FILTROS */}
+            <div className={"filtro-emprestimo"}>
+                <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                >
+                    <option value="">Todas os status</option>
+                    <option value="PENDENTE">Pendente</option>
+                    <option value="DEVOLVIDO">Devolvido</option>
+                    <option value="ATRASADO">Atrasado</option>
+                </select>
+
+                {isAdmin && (
+                    <input
+                        type="text"
+                        placeholder="Nome ou matrícula"
+                        value={nomeOuMatricula}
+                        onChange={(e) => setNomeOuMatricula(e.target.value)}
+                    />
+                )}
+
+                <button onClick={getEmprestimos}>Filtrar</button>
+            </div>
 
             <DataTable
                 data={emprestimos.map(e => ({

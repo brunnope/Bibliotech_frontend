@@ -32,7 +32,7 @@ function ListarLivros() {
          <div className="filtro-livro">
              <input
                   type="text"
-                  placeholder="Buscar por título ou autor"
+                  placeholder="Título ou autor"
                   value={tituloOuAutor}
                   onChange={(e) => setTituloOuAutor(e.target.value)}
              />

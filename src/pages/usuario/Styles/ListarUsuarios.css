@@ -1,4 +1,4 @@
-.filtro-livro{
+.filtro-usuario{
     position: relative;
     display: flex;
     gap: 1rem;
@@ -7,7 +7,7 @@
     margin-bottom: -20px;
 }
 
-.filtro-livro input{
+.filtro-usuario input{
     border: 1px solid #4CAF50;
     border-radius: 30px;
     background-color: #ffffff;
@@ -16,7 +16,7 @@
     width: 30vh;
 }
 
-.filtro-livro button{
+.filtro-usuario button{
     border-radius: 30px;
     width: 10vh;
     font-weight: bold;
@@ -25,7 +25,7 @@
     margin-left: -10px;
 }
 
-.filtro-livro button:hover {
+.filtro-usuario button:hover {
     opacity: 0.8;
 }
 
