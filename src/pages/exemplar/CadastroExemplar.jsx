@@ -74,10 +74,10 @@ function CadastroExemplar() {
           }
     } catch (error) {
           if (error.response && error.response.data && error.response.data.message) {
-              setMensagem(error.response.data.message); // Mostra a mensagem personalizada
+              setMensagem(error.response.data.message);
           }
           else {
-            setMensagem("Erro ao salvar o exemplar. Por favor, tente novamente."); // Mensagem genérica
+            setMensagem("Erro ao salvar o exemplar. Por favor, tente novamente.");
           }
     }
 

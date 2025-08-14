@@ -12,8 +12,6 @@ import ListarExemplares from "./pages/exemplar/ListarExemplares.jsx";
 import CadastroExemplar from "./pages/exemplar/CadastroExemplar.jsx";
 import ListarUsuarios from "./pages/usuario/ListarUsuarios.jsx";
 import ListarEmprestimos from "./pages/empretimo/ListarEmprestimos.jsx";
-import ListarAdministradores from "./pages/administrador/ListarAdministrador.jsx";
-import ListarHistoricos from "./pages/historico/ListarHistorico.jsx";
 import CadastroUsuario from "./pages/usuario/CadastroUsuario.jsx";
 import EditarEmprestimo from "./pages/empretimo/EditarEmprestimo.jsx";
 
@@ -44,7 +42,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/editar-admin/:id" element={<CadastroUsuario isAdmin={true}/>} />
           <Route path="/emprestimos" element={<ListarEmprestimos isAdmin={true} />} />
           <Route path="/editar-emprestimo/:id" element={<EditarEmprestimo />} />
-          <Route path="/admins" element={<ListarAdministradores />} />
           <Route path="/historico" element={<ListarEmprestimos />} />
           <Route path="/perfil/:id" element={<CadastroUsuario isPerfil={true} />} />
         </Route>

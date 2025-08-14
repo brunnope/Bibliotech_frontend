@@ -2,30 +2,35 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import DataTable from "../../components/table/table";
+import PageTitle from "../../components/pageTitle/pageTitle";
 import "./styles/ListarExemplares.css";
 import {getUsuarioLocalStorage} from "../../services/authService.js";
 
 function ListarExemplares({ isAdmin }) {
   const [exemplares, setExemplares] = useState([]);
+  const [disponibilidade, setDisponibilidade] = useState("");
+  const [titulo, setTitulo] = useState("");
   const [modalImage, setModalImage] = useState(null);
   const navigate = useNavigate();
 
-  async function getExemplares() {
-    const response = await api.get("/exemplares");
-    setExemplares(response.data);
-  }
+  const carregarExemplares = async () => {
+        try {
+            const response = await api.get("/exemplares", {
+                params: { disponibilidade, titulo }
+            });
+            setExemplares(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar exemplares:", error);
+        }
+    };
 
-  useEffect(() => {
-    getExemplares();
-  }, []);
+    const handleViewImage = (imageUrl) => {
+        setModalImage(imageUrl);
+    };
 
-  const handleViewImage = (imageUrl) => {
-    setModalImage(imageUrl);
-  };
-
-  const closeModal = () => {
-    setModalImage(null);
-  };
+    const closeModal = () => {
+        setModalImage(null);
+    };
 
     async function criarEmprestimo(idExemplar) {
     try {
@@ -60,17 +65,51 @@ function ListarExemplares({ isAdmin }) {
         await api.post("/emprestimos", emprestimo);
 
         alert("Empréstimo criado com sucesso!");
-        getExemplares();
+        carregarExemplares();
         } catch (error) {
             console.error(error);
             alert("Erro ao criar empréstimo. Tente novamente.");
         }
     }
 
+
+    const handleFiltrar = () => {
+        carregarExemplares();
+    };
+
+
+    useEffect(() => {
+        carregarExemplares();
+    }, []);
+
+
     return (
     <>
+        <PageTitle>Lista de Exemplares</PageTitle>
+
+        {/* FILTROS */}
+        <div className={"filtro"}>
+            <select
+                value={disponibilidade}
+                onChange={(e) => setDisponibilidade(e.target.value)}
+            >
+                <option value="">Todas as disponibilidades</option>
+                <option value="DISPONIVEL">Disponível</option>
+                <option value="INDISPONIVEL">Indisponível</option>
+            </select>
+
+            <input
+                type="text"
+                placeholder="Nome do livro"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+            />
+
+            <button onClick={handleFiltrar}>Filtrar</button>
+        </div>
+
+      {/* TABELA */}
       <DataTable
-        title="Listagem de Exemplares"
         data={exemplares}
         columns={
           isAdmin ? [
@@ -82,6 +121,7 @@ function ListarExemplares({ isAdmin }) {
           { field: "quantidadeDisponivel", label: "Disponível" },
           { field: "idioma", label: "Idioma" },
           { field: "livro.titulo", label: "Livro" },
+          { field: "livro.autor", label: "Autor" },
           { field: "editora.nome", label: "Editora" },
         ] :
         [{ field: "numExemplar", label: "Número" },
@@ -90,6 +130,7 @@ function ListarExemplares({ isAdmin }) {
           { field: "quantidadeDisponivel", label: "Quantidade" },
           { field: "idioma", label: "Idioma" },
           { field: "livro.titulo", label: "Livro" },
+          { field: "livro.autor", label: "Autor" },
           { field: "editora.nome", label: "Editora" }
         ]}
         actions={[

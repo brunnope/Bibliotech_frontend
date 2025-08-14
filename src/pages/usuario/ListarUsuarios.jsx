@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import DataTable from "../../components/table/table";
+import PageTitle from "../../components/pageTitle/PageTitle.jsx";
 
 function ListarUsuarios({ isAdmin = false }) {
   const [usuarios, setUsuarios] = useState([]);
@@ -35,20 +36,23 @@ function ListarUsuarios({ isAdmin = false }) {
   }, [isAdmin]);
 
   return (
-    <DataTable
-      title={isAdmin ? "Listagem de Administradores" : "Listagem de Usuários"}
-      data={usuarios}
-      columns={[
-        { field: "idUsuario", label: "ID" },
-        { field: "nome", label: "Nome" },
-        { field: "email", label: "Email" },
-        { field: "matricula", label: "Matrícula" },
-      ]}
-      idField="idUsuario"
-      onAdd={() => navigate(isAdmin ? "/cadastro-admin" : "/cadastro-usuario")}
-      onEdit={(id) => navigate(isAdmin ? `/editar-admin/${id}` : `/editar-usuario/${id}`)}
-      onDelete={(id) => excluirUsuario(id)}
-    />
+      <>
+        <PageTitle>{isAdmin ? "Listagem de Administradores" : "Listagem de Usuários"}</PageTitle>
+
+        <DataTable
+          data={usuarios}
+          columns={[
+            { field: "idUsuario", label: "ID" },
+            { field: "nome", label: "Nome" },
+            { field: "email", label: "Email" },
+            { field: "matricula", label: "Matrícula" },
+          ]}
+          idField="idUsuario"
+          onAdd={() => navigate(isAdmin ? "/cadastro-admin" : "/cadastro-usuario")}
+          onEdit={(id) => navigate(isAdmin ? `/editar-admin/${id}` : `/editar-usuario/${id}`)}
+          onDelete={(id) => excluirUsuario(id)}
+        />
+      </>
   );
 }
 

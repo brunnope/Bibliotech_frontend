@@ -4,10 +4,9 @@ import Lixeira from "../../assets/lixeira.png";
 import Visualizar from "../../assets/visualizar.png";
 import Emprestimo from "../../assets/emprestimo.png";
 
-function DataTable({ title, columns, data, onEdit, onDelete, onAdd, onEmprestimo,actions, idField = "id" }) {
+function DataTable({columns, data, onEdit, onDelete, onAdd, onEmprestimo,actions, idField = "id" }) {
     return (
         <div className="container-table">
-            {title && <h1>{title}</h1>}
             {onAdd && (
                 <button className="cadastro-btn" onClick={onAdd}>
                     Cadastrar

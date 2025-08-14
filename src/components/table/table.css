@@ -1,11 +1,6 @@
 .container-table {
     padding: 16px;
-    margin-top: 10px;
-}
-
-.container-table h1 {
-    text-align: center;
-    margin-bottom: 20px;
+    margin-top: -10px;
 }
 
 .table-responsive {
@@ -73,12 +68,12 @@
     background-color: #ffffff;
     color: #050505;
     height: 40px;
-    border: none;
     font-weight: bold;
     cursor: pointer;
     font-size: 14px;
     padding: 0 20px;
-    width: 200px;
+    width: 220px;
+    border: 1px solid #4CAF50;
 }
 
 .cadastro-btn:hover {

@@ -189,7 +189,7 @@ function CadastroUsuario({ isPerfil = false, isAdmin = false }) {
                 />
 
                 <InputField
-                    label="Senha"
+                    label={editar ? "Senha" : "Senha*"}
                     name="senha"
                     type="password"
                     value={senha}
@@ -200,7 +200,7 @@ function CadastroUsuario({ isPerfil = false, isAdmin = false }) {
                 />
 
                 <InputField
-                    label="Confirmação de Senha"
+                    label={editar ? "Confirmação de Senha" : "Confirmação de Senha*"}
                     name="confirmacaoSenha"
                     type="password"
                     value={confirmacaoSenha}
