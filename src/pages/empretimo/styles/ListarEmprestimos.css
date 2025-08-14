@@ -45,3 +45,15 @@
 .filtro-emprestimo button:hover {
     opacity: 0.8;
 }
+
+#btn-exportar{
+    border-radius: 30px;
+    height: 40px;
+    width: 30vh;
+    font-weight: bold;
+    background-color: rgb(52, 52, 52);
+    color: #ffffff;
+    border: 1px solid #4CAF50;
+    margin: 0 16px;
+    margin-bottom: 10px;
+}

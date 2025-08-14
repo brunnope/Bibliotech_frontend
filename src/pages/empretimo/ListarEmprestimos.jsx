@@ -33,6 +33,41 @@ function ListarEmprestimos( { isAdmin } ) {
         }
     }
 
+    async function onExportar() {
+        
+        const params = {};
+
+        if (status) params.status = status;
+        if (nomeOuMatricula) params.busca = nomeOuMatricula;
+
+        try {
+            const response = await api.get("/emprestimos/exportar", {
+                params,
+                responseType: "arraybuffer",
+            });
+
+            if (!response.data || response.data.byteLength === 0) {
+                console.warn("Nenhum empréstimo encontrado para exportação.");
+                return;
+            }
+
+            const blob = new Blob([response.data], { type: "application/pdf" });
+            const url = window.URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "emprestimos.pdf";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Erro ao exportar empréstimos", error);
+        }
+    }
+
     useEffect(() => {
         getEmprestimos();
     }, []);
@@ -64,6 +99,12 @@ function ListarEmprestimos( { isAdmin } ) {
 
                 <button onClick={getEmprestimos}>Filtrar</button>
             </div>
+
+            {isAdmin && (
+                <button id="btn-exportar" onClick={onExportar}>Exportar</button>
+            )
+            }
+
 
             <DataTable
                 data={emprestimos.map(e => ({

@@ -15,7 +15,7 @@ function RedefinirSenha() {
     e.preventDefault();
 
     try {
-        const resposta = await api.post('/emails/enviar', {
+        const resposta = await api.post('/emails/enviar/senha', {
             identificador
       });
 

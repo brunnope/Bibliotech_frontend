@@ -43,7 +43,11 @@ function CadastroUsuarioLogin() {
         navigate("/");
         }, 2000);
     } catch (error) {
-        setMensagem("Erro ao cadastrar usuário.");
+        if (error.response && error.response.data && error.response.data.message) {
+            setMensagem(error.response.data.message);
+        }else{
+            setMensagem("Erro ao cadastrar usuário.");
+        }
     }
   }
 

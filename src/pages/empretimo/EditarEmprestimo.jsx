@@ -41,7 +41,7 @@ function EditarEmprestimo() {
 
         if (dataPrevistaDevolucao <= dataEmprestimo){
             setMensagem("Erro! Data de previsão deve ser maior que data de empréstimo!")
-        } else if (dataDevolucao <= dataEmprestimo && status === "DEVOLVIDO" || dataDevolucao <= dataEmprestimo ){
+        } else if (dataDevolucao <= dataEmprestimo && status === "DEVOLVIDO"){
             setMensagem("Erro! Data de devolução deve ser maior que data de empréstimo!")
         }else{
             await api.put(`/emprestimos/${id}`, {
