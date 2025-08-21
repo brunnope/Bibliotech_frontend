@@ -1,3 +1,4 @@
+import { AuthProvider } from "./context/AuthContext.jsx";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,38 +15,168 @@ import ListarUsuarios from "./pages/usuario/ListarUsuarios.jsx";
 import ListarEmprestimos from "./pages/empretimo/ListarEmprestimos.jsx";
 import CadastroUsuario from "./pages/usuario/CadastroUsuario.jsx";
 import EditarEmprestimo from "./pages/empretimo/EditarEmprestimo.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        
-        <Route path="/" element={<Login />} />
-        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
-        <Route path="/cadastro-usuario-login" element={<CadastroUsuarioLogin />} />
+      <AuthProvider>
+            <BrowserRouter>
+              <Routes>
 
-        
-        <Route element={<ProtectedLayout />}>
-          <Route path="/admin/home" element={<ListarExemplares isAdmin={true}/>} />
-          <Route path="/usuario/home" element={<ListarExemplares />} />
-          <Route path="/cadastro-exemplar" element={<CadastroExemplar />} />
-          <Route path="/editar-exemplar/:id" element={<CadastroExemplar />} />
-          <Route path="/cadastro-livro" element={<CadastroLivro />} />
-          <Route path="/editar-livro/:id" element={<CadastroLivro />} />
-          <Route path="/livros" element={<ListarLivros />} />
-          <Route path="/usuarios" element={<ListarUsuarios />} />
-          <Route path="/admins" element={<ListarUsuarios isAdmin={true} />} />
-          <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
-          <Route path="/editar-usuario/:id" element={<CadastroUsuario />} />
-          <Route path="/cadastro-admin" element={<CadastroUsuario isAdmin={true}/>} />
-          <Route path="/editar-admin/:id" element={<CadastroUsuario isAdmin={true}/>} />
-          <Route path="/emprestimos" element={<ListarEmprestimos isAdmin={true} />} />
-          <Route path="/editar-emprestimo/:id" element={<EditarEmprestimo />} />
-          <Route path="/historico" element={<ListarEmprestimos />} />
-          <Route path="/perfil/:id" element={<CadastroUsuario isPerfil={true} />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+                <Route path="/" element={<Login />} />
+                <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+                <Route path="/cadastro-usuario-login" element={<CadastroUsuarioLogin />} />
+
+                  <Route element={<PrivateRoute />}>
+                        <Route element={<ProtectedLayout />}>
+
+                            {/* Rotas apenas para admin */}
+                            <Route
+                                path="/admin/home"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <ListarExemplares isAdmin={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/cadastro-exemplar"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroExemplar />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/editar-exemplar/:id"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroExemplar />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/cadastro-livro"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroLivro />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/editar-livro/:id"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroLivro />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/livros"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <ListarLivros />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/usuarios"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <ListarUsuarios />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/admins"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <ListarUsuarios isAdmin={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/cadastro-usuario"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroUsuario />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/editar-usuario/:id"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroUsuario />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/cadastro-admin"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroUsuario isAdmin={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/editar-admin/:id"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <CadastroUsuario isAdmin={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/emprestimos"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <ListarEmprestimos isAdmin={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/editar-emprestimo/:id"
+                                element={
+                                    <ProtectedRoute roles={['ADMINISTRADOR']}>
+                                        <EditarEmprestimo />
+                                    </ProtectedRoute>
+                                }
+                            />
+
+                            {/* Rotas apenas para usuario */}
+                            <Route
+                                path="/usuario/home"
+                                element={
+                                    <ProtectedRoute roles={['USER']}>
+                                        <ListarExemplares />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/historico"
+                                element={
+                                    <ProtectedRoute roles={['USER']}>
+                                        <ListarEmprestimos />
+                                    </ProtectedRoute>
+                                }
+                            />
+
+                            {/* Rotas para ambos: admin e usuário */}
+                            <Route
+                                path="/perfil/:id"
+                                element={
+                                    <ProtectedRoute roles={['USER', 'ADMINISTRADOR']}>
+                                        <CadastroUsuario isPerfil={true} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
+                  </Route>
+              </Routes>
+            </BrowserRouter>
+      </AuthProvider>
   </StrictMode>
 );

@@ -1,13 +1,14 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
 import Logo from "../../assets/slogan_completa.png";;
 import Button from "../../components/button/Button";
 import InputField from "../../components/input/InputField";
-import { setUsuarioLocalStorage } from "../../services/authService";
 import "./Auth.css"
+import { useAuth } from "../../context/AuthContext.jsx";
+
 
 function Login() {
+    const { login, user } = useAuth();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState('');
@@ -17,22 +18,31 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await api.post("/usuarios/login", { email, senha });
 
-            const usuario = response.data;
-            
-            setUsuarioLocalStorage(usuario);
+            await login({ email, senha });
 
-            if (usuario.role.role === "ADMINISTRADOR") {
-                navigate("/admin/home");
-            } else if (usuario.role.role === "USER") {
-                navigate("/usuario/home");
-            }
         } catch (error) {
             console.error("Erro ao realizar login:", error);
+
             setMensagem("Login ou senha inválidos.");
+
+            setTimeout(() => {
+                setMensagem("");
+            }, 1000);
+
         }
     }
+
+    useEffect(() => {
+        if (user) {
+            if (user.role.role === "ADMINISTRADOR") {
+                navigate("/admin/home");
+            } else if (user.role.role === "USER") {
+                navigate("/usuario/home");
+            }
+        }
+    }, [user, navigate]);
+
 
 
     return (

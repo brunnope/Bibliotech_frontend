@@ -51,15 +51,14 @@ function CadastroUsuarioLogin() {
     }
   }
 
-    async function obterPrimeiroUser() {
-        try {
-            await api.get("/usuarios/1");
-
+    async function verificarPrimeiroAcesso() {
+        const existe = await api.get("/usuarios/existe");
+        
+        if (existe.data){
             setPrimeiroAcesso(false);
             setRole("USER");
             setId(2);
-        } catch (error) {
-
+        }else{
             setPrimeiroAcesso(true);
             setRole("ADMINISTRADOR");
             setId(1);
@@ -67,8 +66,9 @@ function CadastroUsuarioLogin() {
     }
 
 
+
     useEffect(() => {
-        obterPrimeiroUser();
+        verificarPrimeiroAcesso();
     }, []);
 
   return (

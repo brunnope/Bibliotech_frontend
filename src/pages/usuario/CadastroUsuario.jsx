@@ -216,7 +216,7 @@ function CadastroUsuario({ isPerfil = false, isAdmin = false }) {
                 <Button text="Cancelar" type="button" onClick={cancelar} />
             </form>
 
-            {usuario && (
+            {usuario && !isPerfil && (
                 <div key={usuario.idUsuario} className="card">
                     <div>
                         <p>
