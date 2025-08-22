@@ -189,13 +189,28 @@ function EditarEmprestimo() {
                             Nº Exemplar: <span>{emprestimo.exemplar.numExemplar}</span>
                         </p>
                         <p>
-                            Data do Empréstimo: <span>{emprestimo.dataEmprestimo}</span>
+                            Data do Empréstimo: 
+                            <span>
+                                {emprestimo.dataEmprestimo
+                                    ? " " + new Date(emprestimo.dataEmprestimo).toLocaleDateString("pt-BR")
+                                    : "Não informada"}
+                            </span>
                         </p>
                         <p>
-                            Data Prevista de Devolução: <span>{emprestimo.dataPrevistaDevolucao}</span>
+                            Data Prevista de Devolução: 
+                            <span>
+                                {emprestimo.dataPrevistaDevolucao
+                                    ? " " + new Date(emprestimo.dataPrevistaDevolucao).toLocaleDateString("pt-BR")
+                                    : "Não informada"}
+                            </span>
                         </p>
                         <p>
-                            Data de Devolução: <span>{emprestimo.dataDevolucao || "Não informada"}</span>
+                            Data de Devolução: 
+                            <span>
+                                {emprestimo.dataDevolucao
+                                    ? " " + new Date(emprestimo.dataDevolucao).toLocaleDateString("pt-BR")
+                                    : " Não informada"}
+                            </span>
                         </p>
                         <p>
                             Status: <span>{emprestimo.status}</span>

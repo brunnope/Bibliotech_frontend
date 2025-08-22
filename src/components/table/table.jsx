@@ -67,7 +67,11 @@ function DataTable({columns, data, onEdit, onDelete, onAdd, onEmprestimo,actions
                                     );
                                 }
 
-                                return <td key={i}>{value}</td>;
+                                return <td key={i}>
+                                            {col.field.includes("data") && value 
+                                            ? new Date(value).toLocaleDateString("pt-BR")
+                                            : value}
+                                    </td>
                             })}
                             {actions && (
                                 actions.map((action, idx) => (

@@ -220,7 +220,12 @@ function CadastroLivro() {
               ISBN: <span>{livro.isbn}</span>
             </p>
             <p>
-              Data de Cadastro: <span>{livro.dataCadastro}</span>
+              Data de Cadastro:
+                <span>
+                  {livro.dataCadastro
+                    ? " " + new Date(livro.dataCadastro).toLocaleDateString("pt-BR")
+                    : "Não informada"}
+                </span>
             </p>
           </div>
 
